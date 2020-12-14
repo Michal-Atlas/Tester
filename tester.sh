@@ -14,21 +14,26 @@ for test_dir in $(find $TDIR -type d -not -name tests); do
     OE=$(cat "$test_dir/out"); # Output Got + Expected
 
     # REPORT GENERATION
-    if [ "$OG" = "$OE" ]
+    if [ "$OG" = "$OE" ]&&[ "$ECG" -eq "$ECE" ]
     then
-        echo "  OUTPUT: SUCCESS";
+        echo "OK";
     else
-        echo "  OUTPUT: FAILURE";
-        echo "      EXPECTED: $OE";
-        echo "      GOT: $OG";
-    fi;
+        if [ "$OG" = "$OE" ]
+        then
+            echo "  OUTPUT: SUCCESS";
+        else
+            echo "  OUTPUT: FAILURE";
+            echo "      EXPECTED: $OE";
+            echo "      GOT: $OG";
+        fi;
 
-    if [ $ECG -eq "$ECE" ]
-    then
-        echo "  EXIT CODE: SUCCESS";
-    else
-        echo "  EXIT CODE: FAILURE";
-        echo "      EXPECTED: $ECE";
-        echo "      GOT: $ECG";
+        if [ "$ECG" -eq "$ECE" ]
+        then
+            echo "  EXIT CODE: SUCCESS";
+        else
+            echo "  EXIT CODE: FAILURE";
+            echo "      EXPECTED: $ECE";
+            echo "      GOT: $ECG";
+        fi;
     fi;
 done;
