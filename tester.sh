@@ -48,7 +48,7 @@ for test_dir in "$TDIR"/*; do
             ALL_TEST_PASS=0;
         fi;
 
-        if [ ! $TEST_ONLY_SUCCESS ] && [ "$OG" = "$OE" ]
+        if [ ! $TEST_ONLY_SUCCESS ] && [ "$OG" = "$OE" ] || [ ! "$ECE" -eq 0 ]
         then
             echo "  OUTPUT: SUCCESS";
         else
