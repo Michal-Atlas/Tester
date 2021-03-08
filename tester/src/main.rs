@@ -93,9 +93,11 @@ fn main() {
             }
         }
     }
-    println!(
-        "- {}:\n{:?}",
-        Colour::Red.bold().paint("Failures"),
-        failures
-    )
+    if !failures.is_empty() {
+        println!(
+            "- {}:\n{:?}",
+            Colour::Red.bold().paint("Failures"),
+            failures
+        )
+    }
 }
