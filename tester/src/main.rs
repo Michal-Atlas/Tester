@@ -2,7 +2,6 @@ use ansi_term::Colour;
 use std::env::args;
 use std::fs;
 use std::fs::{read_dir, File};
-use std::io::Stdout;
 use std::process::{Command, Output, Stdio};
 
 #[derive(Debug)]
@@ -24,7 +23,7 @@ fn main() {
         }
     };
     let mut failures: Vec<String> = vec![];
-    'test: for test_dir in tests {
+    for test_dir in tests {
         let test_dir = test_dir.unwrap();
         let path = test_dir.path().clone();
         println!(
