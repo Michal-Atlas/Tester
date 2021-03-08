@@ -1,0 +1,8 @@
+[package]
+authors = ["Michal Atlas <michal.z.atlas@gmail.com>"]
+edition = "2018"
+name = "tester"
+version = "0.1.0"
+
+[dependencies]
+ansi_term = "*"
