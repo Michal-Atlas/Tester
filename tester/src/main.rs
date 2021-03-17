@@ -76,7 +76,7 @@ fn main() {
                 println!("  - Fail on supposed Success");
             }
             Output { .. }
-                if std::str::from_utf8(output.stdout.as_slice()).unwrap() != test.output =>
+                if std::str::from_utf8(output.stdout.as_slice()).unwrap().trim() != test.output.trim() =>
             {
                 println!("  - Output not the same");
                 let input = fs::read_to_string(path.to_str().unwrap().to_owned() + "/in").unwrap();
