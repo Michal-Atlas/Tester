@@ -2,8 +2,8 @@ use ansi_term::Colour;
 use std::env::args;
 use std::fs::{read_dir, File};
 use std::process::{Command, Output, Stdio};
-use std::{fs, thread};
 use std::time::SystemTime;
+use std::{fs, thread};
 
 #[derive(Debug)]
 struct Test {
@@ -68,10 +68,10 @@ fn main() {
 
             let out_string = match output {
                 Output { .. } if output.status.success() && test.exit_code != 0 => {
-                    "  - Succeed on supposed fail".to_string()
+                    "  - ".to_string() + &Colour::Red.paint("Succeed on supposed fail").to_string()
                 }
                 Output { .. } if !output.status.success() && test.exit_code == 0 => {
-                    "  - Fail on supposed Success".to_string()
+                    "  - ".to_string() + &Colour::Red.paint("Fail on supposed Success").to_string()
                 }
                 Output { .. }
                     if std::str::from_utf8(output.stdout.as_slice())
@@ -79,23 +79,32 @@ fn main() {
                         .trim()
                         != test.output.trim() =>
                 {
-                    "  - Output not the same\n\n".to_string() +
-                    "diff:\n" +
-                    &Colour::Green.paint(fs::read_to_string(path.to_str().unwrap().to_owned() + "/out").unwrap()).to_string() +
-                        "\n" +
-                    &Colour::Red.paint(std::str::from_utf8(output.stdout.as_slice()).unwrap()).to_string()
+                    "  - ".to_string()
+                        + &Colour::Red.paint("Output not the same\n\n").to_string()
+                        + "diff:\n"
+                        + &Colour::Green
+                            .paint(
+                                fs::read_to_string(path.to_str().unwrap().to_owned() + "/out")
+                                    .unwrap(),
+                            )
+                            .to_string()
+                        + "\n"
+                        + &Colour::Red
+                            .paint(std::str::from_utf8(output.stdout.as_slice()).unwrap())
+                            .to_string()
                 }
-                Output { .. } => {
-                    " - ".to_string() + &Colour::Green.paint("OK").to_string()
-                }
+                Output { .. } => " - ".to_string() + &Colour::Green.paint("OK").to_string(),
             };
             println!(
                 "- {} [{}ms]:\n{}",
                 Colour::Cyan
                     .bold()
                     .paint(test_dir.file_name().to_str().unwrap()),
-                SystemTime::now().duration_since(time_start).unwrap().as_millis(),
-            out_string
+                SystemTime::now()
+                    .duration_since(time_start)
+                    .unwrap()
+                    .as_millis(),
+                out_string
             );
         }));
     }
