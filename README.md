@@ -6,6 +6,18 @@ Usage:
 mate [Directory containing test] [Command to pass to]
 ```
 
+Example in the `examples` folder, with expected output:
+
+```
+> mate tests ./sum.sh
+
+- working [2ms]:
+  - OK
+- error [3ms]:
+  - OK
+
+```
+
 This program takes a directory of the form:
 
 ```
