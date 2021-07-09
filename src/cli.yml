@@ -1,0 +1,19 @@
+name: MATe
+version: "2.0"
+author: Michal Atlas <michal.z.atlas@gmail.com>
+about: Michal Atlas Tester
+args:
+  - test_dir:
+      short: d
+      long: test_dir
+      takes_value: true
+      help: The directory to search for test packs
+      required: true
+      index: 1
+  - run_cmd:
+      short: c
+      long: run_cmd
+      takes_value: true
+      help: The Command to run this with
+      required: true
+      index: 2
